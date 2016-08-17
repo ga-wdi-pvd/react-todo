@@ -4,15 +4,14 @@ import _ from 'underscore'
 export default React.createClass({
   render(){
     var todos = this.props.todos.map(function(todo, index){
-      if (this.props.editTodoId && this.props.editTodoId == index){
+      if (this.props.editedTodoId && parseInt(this.props.editedTodoId, 10) === index){
         return (
           <div data-todos-index={index} data-completed={todo.completed} key={todo.body}>
             <form onSubmit={this.props.onUpdateTodo}>
               <input
                 onChange={this.props.onUpdateTodoField}
-                placeholder='Write a todo here ...'
                 type='text'
-                value={this.props.editedTodo} />
+                value={this.props.todo || ''} />
             </form>
           </div>
         )

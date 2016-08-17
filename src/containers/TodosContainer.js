@@ -41,7 +41,7 @@ export default React.createClass({
   },
   handleUpdateTodoEditField(event){
     this.setState({
-      editTodo: event.target.value
+      editedTodo: event.target.value
     })
   },
   handleCreateUser(event){
@@ -56,7 +56,7 @@ export default React.createClass({
     var todoId = evt.target.parentElement.dataset.todosIndex
     this.setState({
       editing: todoId,
-      todo: this.state.todos[todoId]
+      editedTodo: this.state.todos[todoId].body
     })
 
   },
@@ -64,10 +64,10 @@ export default React.createClass({
     evt.preventDefault()
     var todoId = evt.target.parentElement.dataset.todosIndex
     var todos = this.state.todos
-    todos[todoId].body = this.state.editTodo
+    todos[todoId].body = this.state.editedTodo
     this.setState({
       todos: todos,
-      editTodo: null,
+      editedTodo: null,
       editing: null
     })
     console.log("bob");
@@ -76,7 +76,7 @@ export default React.createClass({
     return (
       <div className='todoComponent'>
         <Todos
-          editTodoId={this.state.editing}
+          editedTodoId={this.state.editing}
           todos={this.state.todos}
           onRenderEditForm={this.renderEditForm}
           onUpdateTodoField={this.handleUpdateTodoEditField}
