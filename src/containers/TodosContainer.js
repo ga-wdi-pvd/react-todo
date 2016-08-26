@@ -1,6 +1,6 @@
 import React from 'react'
 import Todos from '../components/Todos'
-import TodoForm from '../components/TodoForm'
+import CreateTodoForm from '../components/CreateTodoForm'
 
 var todos = [
   {body: "todo1", completed: false},
@@ -34,22 +34,17 @@ export default React.createClass({
     console.log("hook being hit");
     return true
   },
-  handleUpdateTodoCreateField(event) {
-    this.setState({
-      todo: event.target.value
-    })
-  },
+
   handleUpdateTodoEditField(event){
     this.setState({
       editedTodo: event.target.value
     })
   },
-  handleCreateUser(event){
-    event.preventDefault()
+  createTodo(todo){
     console.log(this.state);
-    var todo = {body: this.state.todo, completed: false}
+    var newTodo = {body: todo, completed: false}
     var todos = this.state.todos
-    todos.push(todo)
+    todos.push(newTodo)
     this.setState({todos: todos, todo: ""})
   },
   renderEditForm(evt){
@@ -60,11 +55,10 @@ export default React.createClass({
     })
 
   },
-  handleUpdateTodo(evt){
-    evt.preventDefault()
-    var todoId = evt.target.parentElement.dataset.todosIndex
+  handleUpdateTodo(todo, todoIndex){
     var todos = this.state.todos
-    todos[todoId].body = this.state.editedTodo
+    console.log(todos);
+    todos[todoIndex].body = todo
     this.setState({
       todos: todos,
       editedTodo: null,
@@ -84,9 +78,9 @@ export default React.createClass({
           onDeleteTodo={this.handleDeleteTodo}
           onUpdateTodo={this.handleUpdateTodo}
           todo={this.state.editedTodo} />
-        <TodoForm
-          onCreateTodo={this.handleCreateUser}
-          onUpdateTodoField={this.handleUpdateTodoCreateField}
+        <CreateTodoForm
+          onCreateTodo={this.createTodo}
+          onUpdateTodoCreateField={this.handleUpdateTodoCreateField}
           todo={this.state.todo} />
       </div>
     )

@@ -1,18 +1,22 @@
 import React from 'react'
 import _ from 'underscore'
+import TodoForm from './TodoForm'
 
-export default React.createClass({
+export default class Todos extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = props
+  }
   render(){
     var todos = this.props.todos.map(function(todo, index){
       if (this.props.editedTodoId && parseInt(this.props.editedTodoId, 10) === index){
         return (
-          <div data-todos-index={index} data-completed={todo.completed} key={todo.body}>
-            <form onSubmit={this.props.onUpdateTodo}>
-              <input
-                onChange={this.props.onUpdateTodoField}
-                type='text'
-                value={this.props.todo || ''} />
-            </form>
+          <div data-todos-index={index} data-completed={todo.completed} key={index}>
+            <TodoForm
+              onTodoAction={this.props.onUpdateTodo}
+              todo={this.state.todo}
+              buttonName="Update Todo!"
+               />
           </div>
         )
       } else {
@@ -45,4 +49,4 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
