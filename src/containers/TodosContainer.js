@@ -56,27 +56,36 @@ export default React.createClass({
     console.log(this.state);
 
   },
-  handleUpdateTodo(todo, todoIndex){
+  handleUpdateTodo(todo){
+    console.log(this.state);
     var todos = this.state.todos
+    var todoIndex = this.state.editingTodoId
     todos[todoIndex].body = todo
     this.setState({
       todos: todos,
-      editedTodo: null,
+      editingTodoId: null,
       editing: null
     })
     console.log("bob");
+  },
+  updateEditState(todoId){
+    this.setState({
+      editingTodoId: todoId
+    })
+    console.log(this.state);
   },
   render(){
     return (
       <div className='todoComponent'>
         <Todos
-          editedTodoId={this.state.editing}
+          editedTodoId={this.state.editingTodoId}
           todos={this.state.todos}
           onRenderEditForm={this.renderEditForm}
           onUpdateTodoField={this.handleUpdateTodoEditField}
           onUpdateStatus={this.handleUpdateStatus}
           onDeleteTodo={this.handleDeleteTodo}
           onUpdateTodo={this.handleUpdateTodo}
+          onReceiveState={this.updateEditState}
           todo={this.state.editedTodo} />
         <CreateTodoForm
           onCreateTodo={this.createTodo}

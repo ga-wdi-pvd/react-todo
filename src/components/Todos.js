@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 import TodoForm from './TodoForm'
+import Todo from './Todo'
 
 export default class Todos extends React.Component {
   constructor(props){
@@ -9,31 +10,22 @@ export default class Todos extends React.Component {
   }
   render(){
     var todos = this.props.todos.map(function(todo, index){
-      if (this.props.editedTodoId && parseInt(this.props.editedTodoId, 10) === index){
-        return (
-          <div data-todos-index={index} data-completed={todo.completed} key={index}>
-            <TodoForm
-              onTodoAction={this.props.onUpdateTodo}
-              buttonName="Update Todo!"
-               />
-          </div>
-        )
-      } else {
-        return (
-          <p data-todos-index={index} data-completed={todo.completed} key={index}>
-            <span onClick={this.props.onRenderEditForm}>{todo.body}</span>
-            <span className='toggleButton' onClick={this.props.onUpdateStatus}>&#10004;</span>
-            <span className='deleteButton' onClick={this.props.onDeleteTodo}>X</span>
-          </p>
-        )
-      }
-
+      return(
+        <Todo key={index}
+          index={index}
+          todo={todo}
+          onUpdateStatus={this.props.onUpdateStatus}
+          onDeleteTodo={this.props.onDeleteTodo}
+          receiveState={this.props.onReceiveState}
+          editedTodoId={this.props.editedTodoId}
+          onUpdateTodo={this.props.onUpdateTodo}/>
+      )
     }, this)
     var completeTodos = _.select(todos, function(todo){
-      return todo.props["data-completed"]
+      return todo.props.todo.completed
     })
     var incompleteTodos = _.select(todos, function(todo){
-      return !todo.props["data-completed"]
+      return !todo.props.todo.completed
     })
     return (
       <div className="todosContainer">

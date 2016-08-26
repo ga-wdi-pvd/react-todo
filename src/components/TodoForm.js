@@ -2,17 +2,14 @@ import React from 'react'
 
 export default React.createClass({
   onChange(event) {
-    console.log("happening");
-    console.log(this);
     this.setState({
       todo: event.target.value
     })
   },
   onSubmit(event){
     event.preventDefault()
-    var todoIndex = event.target.parentElement.parentElement.dataset.todosIndex
     var todo = this.state.todo
-    this.props.onTodoAction(todo, todoIndex)
+    this.props.onTodoAction(todo)
     this.setState({
       todo: ""
     })
