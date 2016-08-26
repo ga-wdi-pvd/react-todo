@@ -11,8 +11,6 @@ export default React.createClass({
   onSubmit(event){
     event.preventDefault()
     var todoIndex = event.target.parentElement.parentElement.dataset.todosIndex
-    console.log(todoIndex);
-    console.log(this.props);
     var todo = this.state.todo
     this.props.onTodoAction(todo, todoIndex)
     this.setState({

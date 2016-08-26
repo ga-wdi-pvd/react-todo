@@ -12,7 +12,6 @@ export default class CreateTodoForm extends React.Component {
         <h2>Create Todo Here!</h2>
         <TodoForm
           onTodoAction={this.props.onCreateTodo}
-          todo={this.state.todo}
           buttonName="Create Todo!" />
       </div>
     )

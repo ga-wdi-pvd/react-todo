@@ -41,7 +41,6 @@ export default React.createClass({
     })
   },
   createTodo(todo){
-    console.log(this.state);
     var newTodo = {body: todo, completed: false}
     var todos = this.state.todos
     todos.push(newTodo)
@@ -49,15 +48,16 @@ export default React.createClass({
   },
   renderEditForm(evt){
     var todoId = evt.target.parentElement.dataset.todosIndex
+    console.log(todoId);
     this.setState({
       editing: todoId,
       editedTodo: this.state.todos[todoId].body
     })
+    console.log(this.state);
 
   },
   handleUpdateTodo(todo, todoIndex){
     var todos = this.state.todos
-    console.log(todos);
     todos[todoIndex].body = todo
     this.setState({
       todos: todos,

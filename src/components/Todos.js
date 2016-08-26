@@ -14,14 +14,13 @@ export default class Todos extends React.Component {
           <div data-todos-index={index} data-completed={todo.completed} key={index}>
             <TodoForm
               onTodoAction={this.props.onUpdateTodo}
-              todo={this.state.todo}
               buttonName="Update Todo!"
                />
           </div>
         )
       } else {
         return (
-          <p data-todos-index={index} data-completed={todo.completed} key={todo.body}>
+          <p data-todos-index={index} data-completed={todo.completed} key={index}>
             <span onClick={this.props.onRenderEditForm}>{todo.body}</span>
             <span className='toggleButton' onClick={this.props.onUpdateStatus}>&#10004;</span>
             <span className='deleteButton' onClick={this.props.onDeleteTodo}>X</span>
