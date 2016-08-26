@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'underscore'
-import TodoForm from './TodoForm'
 import Todo from './Todo'
 
 export default class Todos extends React.Component {
@@ -21,12 +20,8 @@ export default class Todos extends React.Component {
           onUpdateTodo={this.props.onUpdateTodo}/>
       )
     }, this)
-    var completeTodos = _.select(todos, function(todo){
-      return todo.props.todo.completed
-    })
-    var incompleteTodos = _.select(todos, function(todo){
-      return !todo.props.todo.completed
-    })
+    var completeTodos = _.select(todos, todo => todo.props.todo.completed)
+    var incompleteTodos = _.select(todos, todo => !todo.props.todo.completed)
     return (
       <div className="todosContainer">
         <div className="todos incomplete col-md-6">

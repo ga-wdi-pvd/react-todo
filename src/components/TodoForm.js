@@ -19,6 +19,7 @@ export default React.createClass({
       <div className='todoForm'>
         <form onSubmit={this.onSubmit}>
           <input
+            autoFocus={this.props.autoFocus}
             onChange={e => this.onChange(e)}
             placeholder='Write a todo here ...'
             type='text'

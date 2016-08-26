@@ -2,19 +2,15 @@ import React from 'react'
 import TodoForm from './TodoForm'
 
 export default class Todo extends React.Component {
-  constructor(props){
-    super(props)
-  }
   sendEditState(event){
-    var todoIndex = event.target.parentElement.dataset.todosIndex
-    console.log(this);
+    var todoIndex = parseInt(event.target.parentElement.dataset.todosIndex, 10)
     this.props.receiveState(todoIndex)
-    console.log(todoIndex);
   }
   render(){
-    if (this.props.editedTodoId == this.props.index){
+    if (this.props.editedTodoId === this.props.index){
       return (
         <TodoForm
+          autoFocus={true}
           buttonName="Update Todo!"
           onTodoAction={this.props.onUpdateTodo}/>
       )
@@ -27,8 +23,4 @@ export default class Todo extends React.Component {
       </p>
     )
   }
-
 }
-// <p data-todos-index={index} data-completed={todo.completed} key={index}>
-//   <span onClick={this.props.onRenderEditForm}>{todo.body}</span>
-// </p>
