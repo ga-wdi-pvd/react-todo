@@ -1,6 +1,7 @@
 import React from 'react'
 import Todos from '../components/Todos'
 import CreateTodoForm from '../components/CreateTodoForm'
+import TodoModel from '../models/Todo'
 
 var todos = [
   {body: "todo1", completed: false},
@@ -14,7 +15,14 @@ var todos = [
 
 export default React.createClass({
   getInitialState(){
-    return ({todos: todos})
+    return ({todos: []})
+  },
+  componentDidMount(){
+    TodoModel.all().then(function(res){
+      this.setState({
+        todos: res.data
+      })
+    }.bind(this))
   },
   handleUpdateStatus(evt){
     var todos = this.state.todos
