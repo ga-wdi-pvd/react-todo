@@ -7,21 +7,22 @@ export default React.createClass({
   getInitialState(){
     return ({todos: []})
   },
-  componentDidMount(){
+  fetchData(){
     TodoModel.all().then(function(res){
       console.log(res);
       this.setState({
-        todos: res.data
+        todos: res.data,
+        todo: ''
       })
     }.bind(this))
   },
+  componentDidMount(){
+    this.fetchData()
+  },
   handleUpdateStatus(evt){
-    var todos = this.state.todos
-    todos[evt.target.parentElement.dataset.todosIndex].completed = !todos[evt.target.parentElement.dataset.todosIndex].completed
-    // sets the todo to the botoom of the list if switching
-    var todo = todos.splice(evt.target.parentElement.dataset.todosIndex, 1)[0]
-    todos.push(todo)
-    this.setState({todos: todos})
+    TodoModel.updateCompletion(evt.target.parentElement.dataset.todosIndex).then(function(res){
+      this.fetchData()
+    }.bind(this))
   },
   handleDeleteTodo(evt){
     var todos = this.state.todos
@@ -36,13 +37,7 @@ export default React.createClass({
     var self = this
     var newTodo = {body: todo, completed: false}
     TodoModel.create(newTodo).then(function(res){
-      TodoModel.all().then(function(res){
-        console.log(res);
-        self.setState({
-          todos: res.data,
-          todo: ''
-        })
-      })
+      self.fetchData()
     })
   },
   handleUpdateTodo(todo){
