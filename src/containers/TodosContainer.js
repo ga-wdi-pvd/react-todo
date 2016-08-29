@@ -37,8 +37,10 @@ export default React.createClass({
     var self = this
     var newTodo = {body: todo, completed: false}
     TodoModel.create(newTodo).then(function(res){
-      self.fetchData()
-    })
+      var todos = this.state.todos
+      todos.push(res.data)
+      this.setState({todos})
+    }.bind(this))
   },
   handleUpdateTodo(todo){
     var todos = this.state.todos
