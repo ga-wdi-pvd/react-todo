@@ -7,4 +7,9 @@ TodoModel.all = function(){
   return request
 }
 
+TodoModel.create = function(todo){
+  var request = axios.post("http://localhost:4000/todos", todo)
+  return request
+}
+
 module.exports = TodoModel

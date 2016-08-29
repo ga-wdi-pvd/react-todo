@@ -19,6 +19,7 @@ export default React.createClass({
   },
   componentDidMount(){
     TodoModel.all().then(function(res){
+      console.log(res);
       this.setState({
         todos: res.data
       })
@@ -42,10 +43,17 @@ export default React.createClass({
     return true
   },
   createTodo(todo){
+    var self = this
     var newTodo = {body: todo, completed: false}
-    var todos = this.state.todos
-    todos.push(newTodo)
-    this.setState({todos: todos, todo: ""})
+    TodoModel.create(newTodo).then(function(res){
+      TodoModel.all().then(function(res){
+        console.log(res);
+        self.setState({
+          todos: res.data,
+          todo: ''
+        })
+      })
+    })
   },
   handleUpdateTodo(todo){
     var todos = this.state.todos
