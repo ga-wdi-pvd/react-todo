@@ -7,7 +7,8 @@ export default class Todo extends React.Component {
     this.props.receiveState(todoIndex)
   }
   render(){
-    if (this.props.editedTodoId === this.props.index){
+    console.log(this.props.todo);
+    if (this.props.editedTodoId === this.props.todo.id){
       return (
         <TodoForm
           autoFocus={true}
@@ -16,7 +17,7 @@ export default class Todo extends React.Component {
       )
     }
     return(
-      <p data-todos-index={this.props.index}>
+      <p data-todos-index={this.props.todo.id}>
         <span onClick={this.sendEditState.bind(this)}>{this.props.todo.body}</span>
         <span className='toggleButton' onClick={this.props.onUpdateStatus}>&#10004;</span>
         <span className='deleteButton' onClick={this.props.onDeleteTodo}>X</span>

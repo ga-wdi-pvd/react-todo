@@ -10,8 +10,8 @@ export default class Todos extends React.Component {
   render(){
     var todos = this.props.todos.map(function(todo, index){
       return(
-        <Todo key={index}
-          index={index}
+        <Todo
+          key={todo.id}
           todo={todo}
           onUpdateStatus={this.props.onUpdateStatus}
           onDeleteTodo={this.props.onDeleteTodo}
