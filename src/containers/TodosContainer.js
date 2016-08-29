@@ -3,16 +3,6 @@ import Todos from '../components/Todos'
 import CreateTodoForm from '../components/CreateTodoForm'
 import TodoModel from '../models/Todo'
 
-var todos = [
-  {body: "todo1", completed: false},
-  {body: "todo2", completed: true},
-  {body: "todo3", completed: false},
-  {body: "todo4", completed: true},
-  {body: "todo5", completed: false},
-  {body: "todo6", completed: false},
-  {body: "todo7", completed: true}
-]
-
 export default React.createClass({
   getInitialState(){
     return ({todos: []})
