@@ -19,22 +19,26 @@ export default React.createClass({
   componentDidMount(){
     this.fetchData()
   },
-  handleUpdateStatus(evt){
-    TodoModel.updateCompletion(evt.target.parentElement.dataset.todosIndex).then(function(res){
+  handleUpdateStatus(todo){
+    console.log(todo);
+    TodoModel.updateCompletion(todo.id).then(function(res){
       this.fetchData()
     }.bind(this))
   },
-  handleDeleteTodo(evt){
-    var todos = this.state.todos
-    todos.splice(evt.target.parentElement.dataset.todosIndex, 1)
-    this.setState({todos: todos})
+  handleDeleteTodo(todo){
+    console.log(todo);
+    TodoModel.deleteTodo(todo.id).then(function(res){
+      this.fetchData()
+    }.bind(this))
+    // var todos = this.state.todos
+    // todos.splice(evt.target.parentElement.dataset.todosIndex, 1)
+    // this.setState({todos: todos})
   },
   shouldComponentUpdate(){
     console.log("hook being hit");
     return true
   },
   createTodo(todo){
-    var self = this
     var newTodo = {body: todo, completed: false}
     TodoModel.create(newTodo).then(function(res){
       var todos = this.state.todos
