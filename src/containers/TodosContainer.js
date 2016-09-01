@@ -7,32 +7,35 @@ export default React.createClass({
   getInitialState(){
     return ({todos: []})
   },
+  componentDidMount(){
+    this.fetchData()
+  },
   fetchData(){
     TodoModel.all().then(function(res){
-      console.log(res);
       this.setState({
         todos: res.data,
         todo: ''
       })
     }.bind(this))
   },
-  componentDidMount(){
-    this.fetchData()
-  },
   handleUpdateStatus(todo){
-    console.log(todo);
     TodoModel.updateCompletion(todo.id).then(function(res){
-      this.fetchData()
+      var todos = this.state.todos
+      var updatedTodo = todos.find((eachTodo) => eachTodo.id === todo.id)
+      updatedTodo.completed = !updatedTodo.completed
+      this.setState({
+        todos: todos
+      })
     }.bind(this))
   },
   handleDeleteTodo(todo){
-    console.log(todo);
     TodoModel.deleteTodo(todo.id).then(function(res){
-      this.fetchData()
+      var todos = this.state.todos
+      var todosMinusDeleted = todos.filter((eachTodo)=> !(eachTodo.id === todo.id))
+      this.setState({
+        todos: todosMinusDeleted
+      })
     }.bind(this))
-    // var todos = this.state.todos
-    // todos.splice(evt.target.parentElement.dataset.todosIndex, 1)
-    // this.setState({todos: todos})
   },
   shouldComponentUpdate(){
     console.log("hook being hit");
@@ -46,22 +49,23 @@ export default React.createClass({
       this.setState({todos})
     }.bind(this))
   },
-  handleUpdateTodo(todo){
-    var todos = this.state.todos
-    var todoIndex = this.state.editingTodoId
-    todos[todoIndex].body = todo
-    this.setState({
-      todos: todos,
-      editingTodoId: null,
-      editing: null
-    })
-    console.log("bob");
+  handleUpdateTodo(todoBody){
+    var todoId = this.state.editingTodoId
+    TodoModel.update(todoId, todoBody).then(function(res){
+      var todos = this.state.todos
+      var editingTodo = todos.find((todo) => todo.id === todoId)
+      editingTodo.body = todoBody
+      this.setState({
+        todos: todos,
+        editingTodoId: null,
+        editing: null
+      })
+    }.bind(this))
   },
-  updateEditState(todoId){
+  updateEditState(todo){
     this.setState({
-      editingTodoId: todoId
+      editingTodoId: todo.id
     })
-    console.log(this.state);
   },
   render(){
     return (

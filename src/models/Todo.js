@@ -21,6 +21,11 @@ TodoModel.updateCompletion = function(todoId){
   return request
 }
 
+TodoModel.update = function(todoId, todoBody){
+  var request = axios.put(`http://localhost:4000/todos/${todoId}`, {body: todoBody})
+  return request
+}
+
 TodoModel.deleteTodo = function(todoId){
   var request = axios.delete(`http://localhost:4000/todos/${todoId}`)
   return request
