@@ -4,7 +4,7 @@ import TodoForm from './TodoForm'
 export default class CreateTodoForm extends React.Component {
   render(){
     return (
-      <div className='todoForm'>
+      <div className='createForm todoForm'>
         <h2>Create Todo Here!</h2>
         <TodoForm
           autoFocus={false}

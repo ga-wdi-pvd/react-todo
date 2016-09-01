@@ -13,6 +13,11 @@ header, .todos {
   margin: auto;
 }
 
+h2 {
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+}
+
 .incomplete h2{
   border-bottom: 3px solid red;
 }
@@ -49,4 +54,11 @@ span.deleteButton, span.toggleButton {
 
 .incomplete span.toggleButton {
   color:red;
+}
+
+.createForm {
+  padding-top: 3em;
+  margin: auto;
+  width: 58%;
+
 }

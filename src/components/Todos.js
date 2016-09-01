@@ -2,10 +2,6 @@ import React from 'react'
 import Todo from './Todo'
 
 export default class Todos extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = props
-  }
   render(){
     var todos = this.props.todos.map(function(todo, index){
       return(
