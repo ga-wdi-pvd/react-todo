@@ -1,23 +1,26 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Todos from '../components/Todos'
 import CreateTodoForm from '../components/CreateTodoForm'
 import TodoModel from '../models/Todo'
 
-export default React.createClass({
-  getInitialState(){
-    return ({todos: []})
-  },
+class TodosContainer extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      todos: []
+    }
+  }
   componentDidMount(){
     this.fetchData()
-  },
+  }
   fetchData(){
     TodoModel.all().then(function(res){
-      this.setState({
+      this.setState ({
         todos: res.data,
         todo: ''
       })
     }.bind(this))
-  },
+  }
   handleUpdateStatus(todo){
     TodoModel.updateCompletion(todo.id).then(function(res){
       var todos = this.state.todos
@@ -27,7 +30,7 @@ export default React.createClass({
         todos: todos
       })
     }.bind(this))
-  },
+  }
   handleDeleteTodo(todo){
     TodoModel.deleteTodo(todo.id).then(function(res){
       var todos = this.state.todos
@@ -36,11 +39,11 @@ export default React.createClass({
         todos: todosMinusDeleted
       })
     }.bind(this))
-  },
+  }
   shouldComponentUpdate(){
     console.log("hook being hit");
     return true
-  },
+  }
   createTodo(todo){
     var newTodo = {body: todo, completed: false}
     TodoModel.create(newTodo).then(function(res){
@@ -48,7 +51,7 @@ export default React.createClass({
       todos.push(res.data)
       this.setState({todos})
     }.bind(this))
-  },
+  }
   handleUpdateTodo(todoBody){
     var todoId = this.state.editingTodoId
     TodoModel.update(todoId, todoBody).then(function(res){
@@ -61,27 +64,28 @@ export default React.createClass({
         editing: null
       })
     }.bind(this))
-  },
+  }
   updateEditState(todo){
     this.setState({
       editingTodoId: todo.id
     })
-  },
+  }
   render(){
     return (
       <div className='todoComponent'>
         <Todos
           editedTodoId={this.state.editingTodoId}
           todos={this.state.todos}
-          onUpdateStatus={this.handleUpdateStatus}
-          onDeleteTodo={this.handleDeleteTodo}
-          onUpdateTodo={this.handleUpdateTodo}
-          onReceiveState={this.updateEditState} />
+          onUpdateStatus={this.handleUpdateStatus.bind(this)}
+          onDeleteTodo={this.handleDeleteTodo.bind(this)}
+          onUpdateTodo={this.handleUpdateTodo.bind(this)}
+          onReceiveState={this.updateEditState.bind(this)} />
         <CreateTodoForm
-          onCreateTodo={this.createTodo}
-          onUpdateTodoCreateField={this.handleUpdateTodoCreateField}
+          onCreateTodo={this.createTodo.bind(this)}
           todo={this.state.todo} />
       </div>
     )
   }
-})
+}
+
+export default TodosContainer

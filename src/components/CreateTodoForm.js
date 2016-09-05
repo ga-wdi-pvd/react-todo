@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import TodoForm from './TodoForm'
 
-export default class CreateTodoForm extends React.Component {
+class CreateTodoForm extends Component {
   render(){
     return (
       <div className='createForm todoForm'>
@@ -14,3 +14,5 @@ export default class CreateTodoForm extends React.Component {
     )
   }
 }
+
+export default CreateTodoForm

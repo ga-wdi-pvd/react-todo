@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Todo from './Todo'
 
-export default class Todos extends React.Component {
+class Todos extends Component {
   render(){
     var todos = this.props.todos.map(function(todo, index){
       return(
@@ -31,3 +31,5 @@ export default class Todos extends React.Component {
     )
   }
 }
+
+export default Todos

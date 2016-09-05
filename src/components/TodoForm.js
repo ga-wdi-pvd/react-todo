@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-export default React.createClass({
+class TodoForm extends Component {
   onChange(event) {
     this.setState({
       todo: event.target.value
     })
-  },
+  }
   onSubmit(event){
     event.preventDefault()
     var todo = this.state.todo
@@ -13,11 +13,11 @@ export default React.createClass({
     this.setState({
       todo: ""
     })
-  },
+  }
   render(){
     return (
       <div className='todoForm'>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={e => this.onSubmit(e)}>
           <input
             autoFocus={this.props.autoFocus}
             onChange={e => this.onChange(e)}
@@ -29,4 +29,6 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
+
+export default TodoForm

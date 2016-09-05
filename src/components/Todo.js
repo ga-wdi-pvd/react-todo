@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import TodoForm from './TodoForm'
 
-export default class Todo extends React.Component {
+class Todo extends Component {
   render(){
     if (this.props.editedTodoId === this.props.todo.id){
       return (
@@ -20,3 +20,5 @@ export default class Todo extends React.Component {
     )
   }
 }
+
+export default Todo
