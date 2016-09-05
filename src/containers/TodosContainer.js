@@ -4,8 +4,8 @@ import CreateTodoForm from '../components/CreateTodoForm'
 import TodoModel from '../models/Todo'
 
 class TodosContainer extends Component{
-  constructor(props){
-    super(props)
+  constructor(){
+    super()
     this.state = {
       todos: []
     }
@@ -39,10 +39,6 @@ class TodosContainer extends Component{
         todos: todosMinusDeleted
       })
     }.bind(this))
-  }
-  shouldComponentUpdate(){
-    console.log("hook being hit");
-    return true
   }
   createTodo(todo){
     var newTodo = {body: todo, completed: false}
