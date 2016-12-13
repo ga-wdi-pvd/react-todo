@@ -33,29 +33,24 @@ class TodosContainer extends Component{
   }
   handleDeleteTodo(todo){
     TodoModel.deleteTodo(todo.id).then(function(res){
-      var todos = this.state.todos
-      var todosMinusDeleted = todos.filter((eachTodo)=> !(eachTodo.id === todo.id))
       this.setState({
-        todos: todosMinusDeleted
+        todos: res.data
       })
     }.bind(this))
   }
   createTodo(todo){
     var newTodo = {body: todo, completed: false}
     TodoModel.create(newTodo).then(function(res){
-      var todos = this.state.todos
-      todos.push(res.data)
-      this.setState({todos})
+      this.setState({
+        todos: res.data
+      })
     }.bind(this))
   }
   handleUpdateTodo(todoBody){
     var todoId = this.state.editingTodoId
     TodoModel.update(todoId, todoBody).then(function(res){
-      var todos = this.state.todos
-      var editingTodo = todos.find((todo) => todo.id === todoId)
-      editingTodo.body = todoBody
       this.setState({
-        todos: todos,
+        todos: res.data,
         editingTodoId: null,
         editing: null
       })
